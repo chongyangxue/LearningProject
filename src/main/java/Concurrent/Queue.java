@@ -1,4 +1,4 @@
-package Concurrent;
+package concurrent;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 

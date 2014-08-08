@@ -1,4 +1,4 @@
-package Concurrent;
+package concurrent;
 
 
 public class RunnableClass implements Runnable {
