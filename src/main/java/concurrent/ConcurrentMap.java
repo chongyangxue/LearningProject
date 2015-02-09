@@ -19,7 +19,7 @@ public class ConcurrentMap {
 	}
 
 	/**
-	 * 结果不一定会输出0是因为HashMap在扩容时导致了重新进行hash计算。
+	 * 结果不一定会输出0是因为HashMap在扩容时导致了重新进行hash计算，而rehash过程可能导致死循环
 	 * 改为final Map<Long, String> map = new HashMap<Long, String>(1000);
 	 * 或者使用ConcurrentHashMap
 	 * @throws Exception
