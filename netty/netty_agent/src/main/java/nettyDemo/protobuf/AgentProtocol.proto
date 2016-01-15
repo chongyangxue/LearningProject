@@ -1,0 +1,23 @@
+
+option optimize_for = SPEED;
+
+enum CommandType {
+	CHECK_SERVER = 0;
+	RESTART_TASK = 1;
+	START_TASK = 2;
+	STOP_TASK = 3;
+	CHECK_TASK = 4;
+}
+
+message CommandRequest {
+	required CommandType command = 1 [default = CHECK_SERVER];
+	required bytes args = 2;
+	required bytes signature = 3;
+}
+
+message CommandResponse {
+	optinal string result = 1;
+	optional CommandType command = 2 [default = CHECK_SERVER];
+  	optional ResultType resultType = 3 [default = SUCCESS];
+  	optional string resultMessage = 4 ;
+}
