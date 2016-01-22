@@ -3,14 +3,8 @@ package redis;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.Pipeline;
-import redis.clients.jedis.Transaction;
 
 public class JedisDemo {
 
@@ -76,97 +70,8 @@ public class JedisDemo {
         System.out.println(String.format("all members: %s", jedis.smembers("sname")));
     }
 
-    /**
-     * 用redis实现一个分布式锁
-     * @author：Sachiel
-     */
-    public static void DistributedLock() {
-        Jedis jedis = new Jedis("192.168.6.148", 6379);
-        String threadName = Thread.currentThread().getName();
-        Long result = jedis.setnx("lock", threadName);
-        if (result.equals(1l)) {
-            try {
-                jedis.expire("lock", 5);
-                System.out.println(threadName + " get lock!");
-                Thread.sleep(3000); //do something
-                
-                //有可能已经超时，锁被别的进程获取了。判断是否是自己的锁
-                if(jedis.get("lock").equals(threadName)) {
-                    jedis.del("lock");
-                }
-            } catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
-    public static void pubSub() {
-        JedisPoolConfig poolConfig = new JedisPoolConfig();
-        JedisPool jedisPool = new JedisPool(poolConfig, "192.168.6.148", 6379, 0);
-        final Jedis subscriberJedis = jedisPool.getResource();
-        final Subscriber subscriber = new Subscriber();
-        ExecutorService threadPool = Executors.newFixedThreadPool(2);
-        threadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    System.out.println("Subscribing to \"channel\". This thread will be blocked.");
-                    subscriberJedis.subscribe(subscriber, "channel");
-                    System.out.println("Subscription ended.");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        
-        final Jedis publisherJedis = jedisPool.getResource();
-        threadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                for(int i = 0; i < 20; i++){  
-                    //publisherJedis.publish("channel", "pub_" + i);
-                    try {
-                        Thread.sleep(1000);
-                    } catch(InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } 
-            }
-        });
-    }
-
-    public static void testPerformance() {
-        Jedis jedis = new Jedis("192.168.6.148", 6379);
-        long startTime=System.currentTimeMillis();   //获取开始时间  
-        Pipeline p = jedis.pipelined();
-        System.out.println("开始写入测试");
-        for(int i = 0; i < 1000000; i++){  
-            p.set("foo"+i, "foo"+i);
-        } 
-        p.sync();
-        long endTime=System.currentTimeMillis(); //获取结束时间  
-        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");    
-        System.out.println("每毫秒写入:"+10000/(endTime-startTime)+"条。");  
-        System.out.println("每秒写入:"+(10000/(endTime-startTime))*1000+"条。"); 
-        
-        for(int i = 0; i < 1000000; i++){  
-            p.del("foo"+i);
-        } 
-    }
-
     public static void main(String[] args) throws InterruptedException {
-        //testPerformance();
         
-        pubSub();
         
-        /*ExecutorService threadPool = Executors.newFixedThreadPool(5);
-        for(int i = 0; i < 4; i++) {
-            threadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    DistributedLock();
-                }
-            });
-        }*/
     }
 }

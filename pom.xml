@@ -10,6 +10,7 @@
     <modules>
         <module>commons</module>
         <module>netty</module>
+        <module>zookeeper</module>
     </modules>
 
     <packaging>pom</packaging>
