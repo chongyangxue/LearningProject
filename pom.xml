@@ -10,7 +10,9 @@
     <modules>
         <module>commons</module>
         <module>netty</module>
+        <module>jafka</module>
         <module>zookeeper</module>
+        <module>hazelcast</module>
     </modules>
 
     <packaging>pom</packaging>

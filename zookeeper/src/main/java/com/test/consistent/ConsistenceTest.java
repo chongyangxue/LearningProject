@@ -14,7 +14,7 @@ public class ConsistenceTest {
         for (int i = 0; i < 10000; i++) {
             String value = "test" + i;
             leader.update(path, value);
-//            follow1.sync(path);
+            follow1.sync(path);
 //            follow2.sync(path);
             String value1 = follow1.getData(path);
             String value2 = follow2.getData(path);
