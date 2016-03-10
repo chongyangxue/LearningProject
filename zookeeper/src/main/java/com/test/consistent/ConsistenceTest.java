@@ -15,7 +15,7 @@ public class ConsistenceTest {
             String value = "test" + i;
             leader.update(path, value);
             follow1.sync(path);
-//            follow2.sync(path);
+            follow2.sync(path);
             String value1 = follow1.getData(path);
             String value2 = follow2.getData(path);
             if (!value.equals(value1) || !value.equals(value2)) {

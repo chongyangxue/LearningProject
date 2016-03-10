@@ -1,6 +1,6 @@
 package com.test.hazelcast;
 
-import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
@@ -8,11 +8,18 @@ import com.hazelcast.core.HazelcastInstance;
 public class DistributedMapTest {
 
     public static void main(String[] args) throws InterruptedException {
+        System.setProperty("hazelcast.config", "/opt/gw/broker/conf/hazelcast.xml");
         HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance();
-        Map<Integer, String> customers = hazelcastInstance.getMap("customers");
-        for (int i = 0; i < 100000; i++) {
-            customers.put(i, "value" + i);
+
+        while (true) {
+            Lock lock = hazelcastInstance.getLock("master");
+            boolean isMaster = lock.tryLock();
+            if (isMaster) {
+                //System.out.println(hazelcastInstance.getLocalEndpoint().toString() + " is Master");
+            }
+
+            Thread.sleep(1000);
         }
-        System.out.println("Map Size:" + customers.size());
     }
+   
 }
