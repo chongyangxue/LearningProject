@@ -23,6 +23,8 @@ public class CuratorDemo {
     
     private DataWatcher dataWatcher = new DataWatcher();
     
+    private ChildrenWatcher childrenWatcher = new ChildrenWatcher();
+    
     private CuratorFramework client;
 
     public CuratorFramework getCurator() {
@@ -50,7 +52,7 @@ public class CuratorDemo {
             switch (event.getType()) {
                 case CHILD_ADDED: {
                     System.out.println("new node:" + path);
-                    client.getData().usingWatcher(dataWatcher).forPath(path);
+//                    client.getData().usingWatcher(dataWatcher).forPath(path);
                     break;
                 }
                 case CHILD_REMOVED: {
@@ -76,7 +78,21 @@ public class CuratorDemo {
         
     }
     
-    public void testWatch() {
+    private class ChildrenWatcher implements Watcher {
+
+        @Override
+        public void process(WatchedEvent event) {
+            System.out.println(event.getType() + ": " + event.getPath());
+            try {
+                client.getChildren().usingWatcher(childrenWatcher).forPath(event.getPath());
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
+    
+    public void testCache() {
         String path = "/gw/defender/BJ_T_TEST/template";
         PathChildrenCache cache = new PathChildrenCache(client, path, true);
         cache.getListenable().addListener(new CacheListener());
@@ -86,11 +102,16 @@ public class CuratorDemo {
             e.printStackTrace();
         }
     }
+    
+    public void testWatch() throws Exception {
+        String path = "/gw/defender/BJ_T_TEST/template";
+        client.getChildren().usingWatcher(childrenWatcher).forPath(path);
+    }
 
     public static void main(String[] args) throws Exception {
         CuratorDemo demo = new CuratorDemo();
         demo.init("192.168.6.143:2181,192.168.6.207:2181,192.168.6.208:2181");
-        demo.testWatch();
+        demo.testCache();
         while (true) {
             Thread.sleep(2000);
         }
