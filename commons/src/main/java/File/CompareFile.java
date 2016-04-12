@@ -41,19 +41,19 @@ public class CompareFile {
     private static int getDiffSize(Map<String, JSONObject> map1, Map<String, JSONObject> map2) {
         List<JSONObject> diff = Lists.newArrayList();
         for (String ip : map1.keySet()) {
-            JSONObject obj = map1.get(ip);
             if (map2.get(ip) == null) {
-                diff.add(obj);
+                diff.add(map1.get(ip));
             }
         }
         return diff.size();
     }
 
     public static void main(String[] args) throws IOException {
-        String name1 = "/opt/146.txt";
-        String name2 = "/opt/147.txt";
+        String name1 = "/opt/147.txt";
+        String name2 = "/opt/148.txt";
         Map<String, JSONObject> map1 = getContentMap(name1);
         Map<String, JSONObject> map2 = getContentMap(name2);
+        System.out.println(map1.size());
         System.out.println(String.format("%s 比  %s 多余：%d条", name1, name2, getDiffSize(map1, map2)));
         System.out.println(String.format("%s 比  %s 多余：%d条", name2, name1, getDiffSize(map2, map1)));
     }

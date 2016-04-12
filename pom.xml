@@ -13,6 +13,7 @@
         <module>jafka</module>
         <module>zookeeper</module>
         <module>hazelcast</module>
+        <module>mybatis</module>
     </modules>
 
     <packaging>pom</packaging>
