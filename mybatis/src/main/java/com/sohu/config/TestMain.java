@@ -1,5 +1,7 @@
 package com.sohu.config;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,13 @@ import com.sohu.mapper.UserDAO;
 import com.sohu.model.User;
 
 @SpringBootApplication
-public class TestSpring implements CommandLineRunner {
+public class TestMain implements CommandLineRunner {
     
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(TestSpring.class);
+        SpringApplication app = new SpringApplication(TestMain.class);
         app.run(args);
     }
 
@@ -26,8 +28,14 @@ public class TestSpring implements CommandLineRunner {
         SqlSession openSession = sqlSessionFactory.openSession();  
         UserDAO userDAO = openSession.getMapper(UserDAO.class); 
         
-        System.out.println("得到用户id=1的用户信息");
-        User user = userDAO.getUser(1);
-        System.out.println(user.getName() + "  " + user.getMobile());
+        User newUser = new User();
+        newUser.setName("test");
+        newUser.setMobile("18898999981");
+        userDAO.addNewUser(newUser);
+        
+        List<User> users = userDAO.getAllUsers();
+        for (User user : users) {
+            System.out.println(user.getName() + "  " + user.getMobile());
+        }
     }
 }

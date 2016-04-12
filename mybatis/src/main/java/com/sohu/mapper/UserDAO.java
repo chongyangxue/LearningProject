@@ -21,7 +21,7 @@ public interface UserDAO {
     public User retrieveUserByIdAndName(@Param("name") String name);
 
     @Insert("INSERT INTO t_user(name,mobile) "
-            + "VALUES(#{userName},#{mobile})")
+            + "VALUES(#{name},#{mobile})")
     public void addNewUser(User user);
 
     @Delete("delete from user where id=#{id}")
