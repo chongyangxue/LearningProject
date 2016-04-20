@@ -2,7 +2,7 @@
  * File: MyBatisConfig.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
-package com.sohu.config;
+package com.sohu;
 
 import javax.sql.DataSource;
 
@@ -12,13 +12,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * Description: 
- * Author: Sachiel 
- * Date: 2016年4月12日 
+ * Description: Author: Sachiel Date: 2016年4月12日
  */
 @Configuration
+@EnableTransactionManagement
 public class MyBatisConfig {
     @Autowired
     DataSource dataSource;
@@ -27,25 +30,22 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactoryBean() {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
-        bean.setTypeAliasesPackage("com.sohu.model");
-
-      /*  //分页插件
-        PageHelper pageHelper = new PageHelper();
-        Properties properties = new Properties();
-        properties.setProperty("reasonable", "true");
-        properties.setProperty("supportMethodsArguments", "true");
-        properties.setProperty("returnPageInfo", "check");
-        properties.setProperty("params", "count=countSql");
-        pageHelper.setProperties(properties);
-
-        //添加插件
-        bean.setPlugins(new Interceptor[]{pageHelper});*/
         try {
             return bean.getObject();
         } catch(Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * @SpringBootApplication 会自动注册一个DataSourceTransactionManager，
+     *  如果不想用那个，这里需要通过@primary指定
+     */
+    @Bean(name = "txManager")
+    @Primary
+    public PlatformTransactionManager txManager() {
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean

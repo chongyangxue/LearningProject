@@ -2,7 +2,7 @@
  * File: MyBatisMapperScannerConfig.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
-package com.sohu.config;
+package com.sohu;
 
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

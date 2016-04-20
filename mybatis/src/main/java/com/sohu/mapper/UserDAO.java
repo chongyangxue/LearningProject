@@ -7,9 +7,12 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sohu.model.User;
 
+@Component
 public interface UserDAO {
     @Select("SELECT * FROM t_user WHERE id = #{id}")
     User getUser(@Param("id") Integer id);
@@ -22,6 +25,7 @@ public interface UserDAO {
 
     @Insert("INSERT INTO t_user(name,mobile) "
             + "VALUES(#{name},#{mobile})")
+    @Transactional
     public void addNewUser(User user);
 
     @Delete("delete from user where id=#{id}")
