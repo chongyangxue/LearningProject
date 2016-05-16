@@ -1,9 +1,14 @@
 package concurrent;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * CountDownLatch是当多个线程都达到了预期状态时触发事件
+ * Description: 
+ * Author: Sachiel 
+ * Date: 2016年4月21日
+ */
 public class CountdownLatchTest {
 
 	public static void main(String[] args) {
@@ -14,14 +19,11 @@ public class CountdownLatchTest {
 			Runnable runnable = new Runnable(){
 					public void run(){
 					try {
-						System.out.println("线程" + Thread.currentThread().getName() + 
-								"正准备接受命令");						
+						System.out.println("线程" + Thread.currentThread().getName() + "正准备接受命令");						
 						cdOrder.await();
-						System.out.println("线程" + Thread.currentThread().getName() + 
-						"已接受命令");								
+						System.out.println("线程" + Thread.currentThread().getName() + "已接受命令");								
 						Thread.sleep((long)(Math.random()*10000));	
-						System.out.println("线程" + Thread.currentThread().getName() + 
-								"回应命令处理结果");						
+						System.out.println("线程" + Thread.currentThread().getName() + "回应命令处理结果");						
 						cdAnswer.countDown();						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -33,14 +35,11 @@ public class CountdownLatchTest {
 		try {
 			Thread.sleep((long)(Math.random()*10000));
 		
-			System.out.println("线程" + Thread.currentThread().getName() + 
-					"即将发布命令");						
+			System.out.println("线程" + Thread.currentThread().getName() + "即将发布命令");						
 			cdOrder.countDown();
-			System.out.println("线程" + Thread.currentThread().getName() + 
-			"已发送命令，正在等待结果");	
+			System.out.println("线程" + Thread.currentThread().getName() + "已发送命令，正在等待结果");	
 			cdAnswer.await();
-			System.out.println("线程" + Thread.currentThread().getName() + 
-			"已收到所有响应结果");	
+			System.out.println("线程" + Thread.currentThread().getName() + "已收到所有响应结果");	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}				

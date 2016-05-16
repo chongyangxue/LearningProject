@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Test;
 
@@ -26,6 +27,8 @@ public class MapTest {
 		for(String key : keySet) {
 			System.out.println(key.toString());
 		}
+		
+		Map<String, String> map1 = new ConcurrentHashMap<String, String>();
 
 	}
 	
