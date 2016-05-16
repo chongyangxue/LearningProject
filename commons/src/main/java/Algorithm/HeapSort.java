@@ -9,7 +9,7 @@ package Algorithm;
  */
 public class HeapSort {
 
-    public static void exchangeElements(int[] array, int index1, int index2) {
+    private void exchangeElements(int[] array, int index1, int index2) {
         int temp = array[index1];
         array[index1] = array[index2];
         array[index2] = temp;
