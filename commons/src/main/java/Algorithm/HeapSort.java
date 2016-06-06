@@ -68,12 +68,12 @@ public class HeapSort {
     public int[] heapSort(int[] heap) {
         //初始化堆
         for (int i = heap.length / 2 - 1; i >= 0; i--) {
-            maxHeapify(heap, i, heap.length);
+            minHeapify(heap, i, heap.length);
         }
 
         for (int i = heap.length - 1; i >= 1; i--) {
             exchangeElements(heap, 0, i);
-            maxHeapify(heap, 0, i);
+            minHeapify(heap, 0, i);
         }
         return heap;
     }
@@ -86,4 +86,5 @@ public class HeapSort {
             System.out.print(i + " ");
         }
     }
+    
 }

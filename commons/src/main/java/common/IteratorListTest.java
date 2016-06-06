@@ -3,7 +3,6 @@ package common;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * 每个任务有两个字段ID和Pre_ID，pre_ID代表任务的前提任务，要求对一个任务列表按流程排序
