@@ -21,14 +21,17 @@ public class TopN {
     /**
      * 
      * 根据属性排序得到最大的n个对象
-     * @author：Sachiel 
-     * @param list          数据列表
-     * @param fieldName     根据这个属性名称对列表中的对象进行排序
-     * @param n             获取最大的对象的数量
+     * 
+     * @author：Sachiel
+     * @param list
+     *            数据列表
+     * @param fieldName
+     *            根据这个属性名称对列表中的对象进行排序
+     * @param n
+     *            获取最大的对象的数量
      * @return
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public <T> List<T> getTopN(List<T> list, String fieldName, int n) {
+    public static <T> List<T> getTopN(List<T> list, String fieldName, int n) {
         List<T> heap = new ArrayList<T>(n);
         try {
             Field field = list.get(0).getClass().getDeclaredField(fieldName);
@@ -37,20 +40,24 @@ public class TopN {
                 T obj = list.get(i);
                 if (i < n) {
                     heap.add(obj);
+                    if (i == (n - 1)) {
+                        buildHeap(heap, field);
+                    }
                 } else {
-                    minHeapSort(heap, fieldName);
-                    Comparable newValue = (Comparable) field.get(obj);
-                    Comparable topValue = (Comparable) field.get(heap.get(0));
-                    if (newValue.compareTo(topValue) > 0) {
+                    if (compare(field, obj, heap.get(0)) > 0) {
                         heap.set(0, obj);
                     }
+                    minHeapify(heap, field, 0, n);
                 }
+//                for (T t : heap) {
+//                    System.out.print(field.get(t) + " ");
+//                }
+//                System.out.println();
             }
 
-            minHeapify(heap, fieldName, 0, n);
             for (int i = heap.size() - 1; i >= 1; i--) {
                 exchangeElements(heap, 0, i);
-                minHeapify(heap, fieldName, 0, i);
+                minHeapify(heap, field, 0, i);
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -58,7 +65,15 @@ public class TopN {
         return heap;
     }
 
-    private <T> void exchangeElements(List<T> list, int index1, int index2) {
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private static <T> int compare(Field field, T t1, T t2) throws Exception {
+        Comparable compare1 = (Comparable) field.get(t1);
+        Comparable compare2 = (Comparable) field.get(t2);
+        return compare1.compareTo(compare2);
+
+    }
+
+    private static <T> void exchangeElements(List<T> list, int index1, int index2) {
         T temp = list.get(index1);
         list.set(index1, list.get(index2));
         list.set(index2, temp);
@@ -73,29 +88,26 @@ public class TopN {
      * @param heap
      * @param index
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    private <T> void minHeapify(List<T> heap, String fieldName, int index, int size) {
+    private static <T> void minHeapify(List<T> heap, Field field, int index, int size) {
         int position = index;
         int left = 2 * index + 1;
         int right = 2 * index + 2;
 
         try {
-            Field field = heap.get(0).getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            Comparable posValue = (Comparable) field.get(heap.get(position));
-            Comparable leftValue = left < size ? (Comparable) field.get(heap.get(left)) : null;
-            Comparable rightValue = right < size ? (Comparable) field.get(heap.get(right)) : null;
+            T leftObj = left < size ? heap.get(left) : null;
+            T rightObj = right < size ? heap.get(right) : null;
+            T posObj = heap.get(position);
 
-            if (leftValue != null && leftValue.compareTo(posValue) < 0) {
+            if (leftObj != null && compare(field, leftObj, posObj) < 0) {
                 position = left;
-                posValue = (Comparable) field.get(heap.get(position));
+                posObj = heap.get(position);
             }
-            if (rightValue != null && rightValue.compareTo(posValue) < 0) {
+            if (rightObj != null && compare(field, rightObj, posObj) < 0) {
                 position = right;
             }
             if (position != index) {
                 exchangeElements(heap, position, index);
-                minHeapify(heap, fieldName, position, size);
+                minHeapify(heap, field, position, size);
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -110,15 +122,14 @@ public class TopN {
      * @param fieldName
      * @return
      */
-    public <T> List<T> minHeapSort(List<T> heap, String fieldName) {
+    public static <T> List<T> buildHeap(List<T> heap, Field field) {
         for (int i = heap.size() / 2 - 1; i >= 0; i--) {
-            minHeapify(heap, fieldName, i, heap.size());
+            minHeapify(heap, field, i, heap.size());
         }
         return heap;
     }
 
     public static void main(String[] args) {
-        TopN top = new TopN();
         List<User> list = Lists.newArrayList();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 1);
@@ -144,7 +155,7 @@ public class TopN {
         calendar.add(Calendar.MINUTE, 1);
         list.add(new User(1, "xue", "18", calendar.getTime()));
 
-        List<User> result = top.getTopN(list, "startTime", 7);
+        List<User> result = getTopN(list, "startTime", 7);
         for (User user : result) {
             System.out.print(user.getUserid() + " ");
         }
