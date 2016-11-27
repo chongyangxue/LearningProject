@@ -15,6 +15,7 @@
         <module>hazelcast</module>
         <module>mybatis</module>
         <module>hystrix</module>
+        <module>Ignite</module>
     </modules>
 
     <packaging>pom</packaging>
