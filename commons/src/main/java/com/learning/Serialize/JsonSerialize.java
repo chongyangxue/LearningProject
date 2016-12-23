@@ -1,6 +1,7 @@
-package com.learning.Serializable;
+package com.learning.Serialize;
 
 import com.alibaba.fastjson.JSONObject;
+import com.learning.Serialize.test.Person;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -10,12 +11,10 @@ import java.io.*;
  * Created by xuechongyang on 16/12/20.
  */
 public class JsonSerialize {
-    private static final String FILE_PATH = "/opt/serialize/jsonResult_1L";
+    private static final String FILE_PATH = "/opt/serialize/json";
 
-    @Test
-    public void write() throws IOException {
-        Person p = new Person(1, "Jack", 20);
-        String result = JSONObject.toJSONString(p);
+    public static void write(Object o) throws IOException {
+        String result = JSONObject.toJSONString(o);
         FileUtils.writeStringToFile(new File(FILE_PATH), result);
     }
 

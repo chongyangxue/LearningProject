@@ -1,4 +1,4 @@
-package com.learning.Serializable;
+package com.learning.Serialize;
 
 
 import com.meituan.cache.redisCluster.client.transcoders.spyTranscoders.CachedData;
@@ -17,12 +17,10 @@ import java.io.File;
  */
 public class SpyMemcachedSerialize {
 
-    private static final String FILE_PATH = "/opt/serialize/spymemcached_1L";
+    private static final String FILE_PATH = "/opt/serialize/spymemcached";
 
-    @Test
-    public void write() throws Exception {
-        Person p = new Person(1, "Jack", 20);
-        CachedData cachedData = new SerializingTranscoder().encode(p);
+    public static void write(Object o) throws Exception {
+        CachedData cachedData = new SerializingTranscoder().encode(o);
         byte[] data = cachedData.getData();
         int spyFlag = cachedData.getFlag();
         byte[] ret = new byte[data.length + 1];

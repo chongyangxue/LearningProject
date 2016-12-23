@@ -1,4 +1,4 @@
-package com.learning.Serializable;
+package com.learning.Serialize;
 
 import com.caucho.hessian.io.HessianInput;
 import com.caucho.hessian.io.HessianOutput;
@@ -18,14 +18,12 @@ import java.io.File;
  */
 public class HessianSerialize {
 
-    private static final String FILE_PATH = "/opt/serialize/hessianSerializeResult_1L";
+    private static final String FILE_PATH = "/opt/serialize/hessian";
 
-    @Test
-    public void write() throws Exception {
-        Person p = new Person(1, "Jack", 20);
+    public static void write(Object o) throws Exception {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         HessianOutput out = new HessianOutput(bos);
-        out.writeObject(p);
+        out.writeObject(o);
         out.flush();
         byte[] bytes = bos.toByteArray();
         FileUtils.writeByteArrayToFile(new File(FILE_PATH), bytes);
