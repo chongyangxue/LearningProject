@@ -49,23 +49,19 @@ public class EsClientUtils {
 
         init(esname, eshostStr);
 
-        Thread t = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                while (alive) {
-                    if (clientReference.get() == null || clientReference.get().connectedNodes().size() == 0) {
-                        init(esname, eshostStr);
-                    }
-                    try {
-                        TimeUnit.SECONDS.sleep(3);
-                    } catch(InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
+        Thread t = new Thread(() -> {
+            while (alive) {
+                if (clientReference.get() == null || clientReference.get().connectedNodes().size() == 0) {
+                    init(esname, eshostStr);
                 }
-                logger.info("clientReference is " + clientReference.get());
-
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch(InterruptedException e1) {
+                    e1.printStackTrace();
+                }
             }
+            logger.info("clientReference is " + clientReference.get());
+
         });
 
         t.start();
