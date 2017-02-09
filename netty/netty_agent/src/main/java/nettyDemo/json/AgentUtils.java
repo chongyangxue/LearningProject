@@ -1,13 +1,12 @@
 package nettyDemo.json;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import net.sf.json.JSONObject;
-
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AgentUtils {
 	private final static Logger log = LoggerFactory.getLogger(AgentUtils.class);
@@ -42,7 +41,7 @@ public class AgentUtils {
 		try {
 			String response = client.run(ipAddress, "6698", request);
 			System.out.println(response);
-			JSONObject resultMsg = JSONObject.fromObject(response);
+			JSONObject resultMsg = JSONObject.parseObject(response);
 			if(resultMsg.getString("status").equals("200")) {
 				return true;
 			}else {

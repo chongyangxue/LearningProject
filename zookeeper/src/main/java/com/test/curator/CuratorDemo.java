@@ -1,6 +1,6 @@
 /** 
  * File: CuratorDemo.java
- * Copyright (C), 2015-2016 ÖÐÓ¯ÓÅ´´  Tech.Co.Ltd.All Rights Reserved.
+ * Copyright (C), 2015-2016 ï¿½ï¿½Ó¯ï¿½Å´ï¿½  Tech.Co.Ltd.All Rights Reserved.
  */
 package com.test.curator;
 

@@ -1,29 +1,17 @@
 package nettyDemo.json;
 
-import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
-
-import net.sf.json.JSONObject;
-
+import com.alibaba.fastjson.JSONObject;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
-import org.jboss.netty.channel.Channel;
-import org.jboss.netty.channel.ChannelEvent;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelHandlerContext;
-import org.jboss.netty.channel.ChannelPipeline;
-import org.jboss.netty.channel.ChannelPipelineFactory;
-import org.jboss.netty.channel.ChannelStateEvent;
-import org.jboss.netty.channel.Channels;
-import org.jboss.netty.channel.ExceptionEvent;
-import org.jboss.netty.channel.MessageEvent;
-import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
+import org.jboss.netty.channel.*;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
 import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 
 public class Server {
 	public void start() {
@@ -71,7 +59,7 @@ public class Server {
 			try {
 				//签名认证并解密
 				boolean signSuccess = false;
-				JSONObject json = JSONObject.fromObject(request);
+				JSONObject json = JSONObject.parseObject(request);
 				byte[] args = Base64.decode(json.getString("args"));
 				byte[] signature = Base64.decode(json.getString("signature"));
 				try{
