@@ -1,4 +1,4 @@
-package com.learning.common;
+package com.learning.Algorithm;
 /**
         结论1：对于n的阶乘n！，其因式分解中，如果存在一个因子“5”，那么它必然对应着n！末尾的一个“0”。
         下面对这个结论进行证明：
