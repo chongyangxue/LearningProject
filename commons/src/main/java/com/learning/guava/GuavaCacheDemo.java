@@ -1,8 +1,6 @@
 package com.learning.guava;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
+import com.google.common.cache.*;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
@@ -23,7 +21,18 @@ public class GuavaCacheDemo {
 
     private static LoadingCache<String, String> localCache = CacheBuilder.newBuilder()
             .maximumSize(100)
+            .weakKeys()
+            .weakValues()
+            .softValues()
             .expireAfterWrite(1, TimeUnit.DAYS)
+            .expireAfterAccess(1, TimeUnit.DAYS)
+            .concurrencyLevel(1)
+            .removalListener(new RemovalListener<String, String>() {
+                @Override
+                public void onRemoval(RemovalNotification<String, String> notification) {
+
+                }
+            })
             .build(new CacheLoader<String, String>() {
                 @Override
                 public String load(String key) throws Exception {

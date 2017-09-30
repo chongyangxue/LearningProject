@@ -1,7 +1,5 @@
 package com.learning.Thread;
 
-import org.junit.Test;
-
 import java.util.concurrent.*;
 
 /**
@@ -11,27 +9,29 @@ import java.util.concurrent.*;
  */
 public class TheadLost {
 
-    private static ExecutorService threadPool = new ThreadPoolExecutor(4, 8, 5, TimeUnit.SECONDS,
-            new LinkedBlockingDeque<>(3000),
+    /*private static ExecutorService threadPool = new ThreadPoolExecutor(4, 8, 5, TimeUnit.SECONDS,
+            new LinkedBlockingDeque<>(1),
             new NamedThreadFactory("TestThreadLost"),
-            new ThreadPoolExecutor.AbortPolicy());
+            new ThreadPoolExecutor.AbortPolicy());*/
 
-    @Test
-    public void test() {
-        new Thread(() -> {
-            threadPool.execute(() -> {
-                while (true) {
-                    StringBuilder sb = null;
-                    System.out.println(sb.toString());
+    private static ExecutorService threadPool = Executors.newFixedThreadPool(1);
 
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }).start();
+    private static void process() {
+        threadPool.execute(() -> {
+            StringBuilder sb = null;
+            System.out.println(sb.toString());
+            try {
+                TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
+        });
     }
+
+    public static void main(String[] args) {
+        ScheduledThreadPoolExecutor scheduleService = new ScheduledThreadPoolExecutor(1);
+        scheduleService.scheduleAtFixedRate(TheadLost::process, 1, 1, TimeUnit.SECONDS);
+    }
+
 }

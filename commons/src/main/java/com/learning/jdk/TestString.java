@@ -1,20 +1,25 @@
 package com.learning.jdk;
 
+import lombok.Data;
 import org.junit.Test;
 
 public class TestString {
 	@Test
 	public void testString() {
-		String s = "a" + "b" + "c" + "d";
-		System.out.println(s == "abcd");
-		
-		String s1 = "a";
-		String s2 = s1 + "b";
-		String s3 = "a" + "b";
-		String s4  = "ab";
-		System.out.println(s2 == "ab");
-		System.out.println(s3 == "ab");
-		System.out.println(s3 == s4);
+        User user = new User(10, 99.4F);
+        Integer age = user.getAge();
+        user.setAge(9);
+        System.out.println(age);
+    }
 
-	}
+	@Data
+	static class User {
+        private Integer age;
+        private Float score;
+
+        public User(Integer age, Float score) {
+            this.age = age;
+            this.score = score;
+        }
+    }
 }
