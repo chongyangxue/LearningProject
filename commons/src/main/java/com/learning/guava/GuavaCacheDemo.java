@@ -1,59 +1,59 @@
 package com.learning.guava;
 
-import com.google.common.cache.*;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListenableFutureTask;
+import com.learning.Thread.NamedThreadFactory;
 
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.*;
 
 /**
- * Created by xuechongyang on 17/5/5.
+ * GuavaCache Demo.
+ *
+ * @author xuechongyang
  */
 public class GuavaCacheDemo {
 
-    private static final ExecutorService threadPool = Executors.newCachedThreadPool();
-
-    private static final CyclicBarrier barrier = new CyclicBarrier(100);
-
-    private static final AtomicInteger atomicCount = new AtomicInteger(0);
+    private static final ExecutorService EXECUTOR = new ThreadPoolExecutor(1, 3, 10, TimeUnit.SECONDS,
+            new LinkedBlockingDeque<>(100), new NamedThreadFactory("test-thread"), new ThreadPoolExecutor.AbortPolicy());
 
     private static LoadingCache<String, String> localCache = CacheBuilder.newBuilder()
             .maximumSize(100)
             .weakKeys()
-            .weakValues()
-            .softValues()
+//            .weakValues()
+            .softValues() //LRU策略GC
             .expireAfterWrite(1, TimeUnit.DAYS)
             .expireAfterAccess(1, TimeUnit.DAYS)
-            .concurrencyLevel(1)
-            .removalListener(new RemovalListener<String, String>() {
-                @Override
-                public void onRemoval(RemovalNotification<String, String> notification) {
-
-                }
-            })
+            .refreshAfterWrite(1, TimeUnit.MINUTES)
             .build(new CacheLoader<String, String>() {
                 @Override
                 public String load(String key) throws Exception {
                     System.out.println("loading key:" + key);
-                    return key + "1";
+                    return "loadKey";
                 }
+
+                @Override
+                public ListenableFuture<String> reload(final String key, final String oldValue) {
+                    // asynchronous!
+                    ListenableFutureTask<String> task = ListenableFutureTask.create(() -> key + "reloadMethod");
+                    EXECUTOR.execute(task);
+                    return task;
+                }
+
             });
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            threadPool.execute(() -> {
-                try {
-                    System.out.println(Thread.currentThread().getName() + "第" + atomicCount.getAndAdd(1) + "个线程已就绪");
-                    barrier.await();
-                    System.out.println(Thread.currentThread().getName() + "开始查询缓存");
-                    String value = localCache.get("key");
-                    System.out.println(value);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
+    public static void main(String[] args) throws ExecutionException {
+        String value = localCache.get("key");
+        System.out.println(value);
+
+        value = localCache.get("key1", new Callable<String>() {
+            @Override
+            public String call() throws Exception {
+                return "callable value";
+            }
+        });
+        System.out.println(value);
     }
 }
