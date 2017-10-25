@@ -32,25 +32,17 @@ public class GuavaCacheDemo {
                 @Override
                 public String load(String key) throws Exception {
                     System.out.println("loading key:" + key);
-                    return loadMethod();
+                    return "load value";
                 }
 
                 @Override
                 public ListenableFuture<String> reload(final String key, final String oldValue) throws Exception {
-                    ListenableFutureTask<String> task = ListenableFutureTask.create(() -> reloadMethod());
+                    ListenableFutureTask<String> task = ListenableFutureTask.create(() -> "reload value");
                     EXECUTOR.execute(task);
                     System.out.println("reloading key:" + key);
                     return task;
                 }
             });
-
-    private static String loadMethod() {
-        return "load value";
-    }
-
-    private static String reloadMethod() {
-        return "reload value";
-    }
 
     @Test
     public void testLoad() throws ExecutionException {
