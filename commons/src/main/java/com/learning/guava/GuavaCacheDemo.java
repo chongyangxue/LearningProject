@@ -6,6 +6,7 @@ import com.google.common.cache.LoadingCache;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
 import com.learning.Thread.NamedThreadFactory;
+import org.junit.Test;
 
 import java.util.concurrent.*;
 
@@ -31,29 +32,49 @@ public class GuavaCacheDemo {
                 @Override
                 public String load(String key) throws Exception {
                     System.out.println("loading key:" + key);
-                    return "loadKey";
+                    return loadMethod();
                 }
 
                 @Override
-                public ListenableFuture<String> reload(final String key, final String oldValue) {
-                    // asynchronous!
-                    ListenableFutureTask<String> task = ListenableFutureTask.create(() -> key + "reloadMethod");
+                public ListenableFuture<String> reload(final String key, final String oldValue) throws Exception {
+                    ListenableFutureTask<String> task = ListenableFutureTask.create(() -> reloadMethod());
                     EXECUTOR.execute(task);
+                    System.out.println("reloading key:" + key);
                     return task;
                 }
-
             });
 
-    public static void main(String[] args) throws ExecutionException {
-        String value = localCache.get("key");
-        System.out.println(value);
+    private static String loadMethod() {
+        return "load value";
+    }
 
-        value = localCache.get("key1", new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return "callable value";
-            }
-        });
+    private static String reloadMethod() {
+        return "reload value";
+    }
+
+    @Test
+    public void testLoad() throws ExecutionException {
+        String key = "test";
+        for (int i = 0; i < 10; i++) {
+            System.out.println(localCache.get(key));
+        }
+    }
+
+    @Test
+    public void testCallable() throws ExecutionException {
+        String key = "test";
+        String value = localCache.get(key, () -> "callable value");
         System.out.println(value);
+    }
+
+    @Test
+    public void testReload() throws Exception {
+        String key = "test";
+        System.out.println(localCache.get(key));
+        localCache.refresh(key);
+        for (int i = 0; i < 10; i++) {
+            System.out.println(localCache.get(key));
+            TimeUnit.MILLISECONDS.sleep(400);
+        }
     }
 }
