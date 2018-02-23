@@ -9,8 +9,6 @@ import lombok.Data;
  */
 public class EventBusDemo {
 
-    private static EventBus eventBus = new EventBus();
-
     @Data
     public static class BaseEvent {
         protected String event;
@@ -61,6 +59,7 @@ public class EventBusDemo {
     }
 
     public static void main(String[] args) {
+        EventBus eventBus = new EventBus();
         eventBus.register(new EventBusChangeRecorder());
         ChangeEvent changeEvent = new ChangeEvent("event", "change");
         DeleteEvent deleteEvent = new DeleteEvent("event", "delete");

@@ -48,6 +48,7 @@ public class GuavaCacheDemo {
     public void testLoad() throws ExecutionException {
         String key = "test";
         for (int i = 0; i < 10; i++) {
+            System.out.println(localCache.getIfPresent(key));
             System.out.println(localCache.get(key));
         }
     }
