@@ -17,6 +17,7 @@
         <module>hystrix</module>
         <module>Ignite</module>
         <module>elasticsearch</module>
+        <module>spi</module>
     </modules>
 
     <packaging>pom</packaging>
