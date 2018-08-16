@@ -4,6 +4,13 @@
  */
 package com.learning.concurrent;
 
+/**
+ * 调用wait方法后，线程是会释放对monitor对象的所有权的。
+ * 一个通过wait方法阻塞的线程，必须同时满足以下两个条件才能被真正执行：
+        线程需要被唤醒（超时唤醒或调用notify/notifyll）。
+ 　　　　线程唤醒后需要竞争到锁（monitor）。
+ * notify和notifyAll的区别在于前者只能唤醒monitor上的一个线程，对其他线程没有影响，而notifyAll则唤醒所有的线程
+ */
 public class WaitNotifyTest {
 
     private boolean isEmpty;
