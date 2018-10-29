@@ -1,7 +1,6 @@
 package com.learning.guava;
 
 import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -35,6 +34,6 @@ public class ListenableFutureDemo {
             ListenableFuture<List<Integer>> listenableFuture = executorService.submit(new callable());
             futureList.add(listenableFuture);
         }
-        Futures.allAsList();
+//        ListenableFuture<List<Integer>> future = Futures.allAsList(futureList);
     }
 }
