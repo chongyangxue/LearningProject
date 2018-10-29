@@ -9,6 +9,8 @@ import java.util.stream.LongStream;
  *
  * 使用了 ForkJoinPool 的实现逻辑全部集中在了 compute() 这个函数里，仅用了14行就实现了完整的计算过程。
  * 特别是，在这段代码里没有显式地“把任务分配给线程”，只是分解了任务，而把具体的任务到线程的映射交给了 ForkJoinPool 来完成。
+ *
+ * http://blog.dyngr.com/blog/2016/09/15/java-forkjoinpool-internals/
  */
 public class ForkJoinCalculator implements Calculator {
 
