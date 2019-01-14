@@ -69,5 +69,6 @@ public class GuavaCacheDemo {
             System.out.println(localCache.get(key));
             TimeUnit.MILLISECONDS.sleep(400);
         }
+        localCache.invalidateAll();
     }
 }
