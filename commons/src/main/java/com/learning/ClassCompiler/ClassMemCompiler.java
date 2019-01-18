@@ -50,7 +50,8 @@ public class ClassMemCompiler {
             throw new MemCompileException(fullClassName, diagnosticCollector.getDiagnostics());
         }
         log.info("compile in memory success! fullClassName={}", fullClassName);
-        return memFileManager.cachedMemJavaClassFiles.get(fullClassName);
+        JavaMemClassFile javaMemClassFile = memFileManager.cachedMemJavaClassFiles.get(fullClassName);
+        return javaMemClassFile;
     }
 
 
