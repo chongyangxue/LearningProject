@@ -1,4 +1,4 @@
-package com.learning.off_heap;
+package com.learning.off_heap.unsafe;
 
 /**
  * Created by xuechongyang on 17/1/12.

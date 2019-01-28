@@ -1,5 +1,7 @@
 package com.learning.Serialize.test;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 public class Person implements Serializable {
@@ -8,8 +10,6 @@ public class Person implements Serializable {
 
     private String name;
     private String id;
-
-    private Integer age = null;
 
 
     public Person() {} //json序列化必须要？
@@ -37,8 +37,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("id=%s, name=%s", id, name);
+        return JSONObject.toJSONString(this);
     }
-
 
 }

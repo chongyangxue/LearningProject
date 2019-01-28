@@ -1,4 +1,4 @@
-package com.learning.off_heap;
+package com.learning.off_heap.unsafe;
 
 import sun.misc.Unsafe;
 
