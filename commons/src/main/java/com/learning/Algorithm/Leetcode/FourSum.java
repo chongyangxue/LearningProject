@@ -21,13 +21,12 @@ public class FourSum {
             }
             int loopTarget = target - nums[m];
             for (int i = m + 1; i < nums.length; i++) {
-                if (nums[i] > loopTarget) {
-                    break;
-                }
-                if (i > 0 && nums[i] == nums[i - 1]) {
+                if (i > m + 1 && nums[i] == nums[i - 1]) {
                     continue;
                 }
                 for (int j = i + 1, k = nums.length - 1; j < k; ) {
+                    System.out.printf("m=%d,i=%d,j=%d,k=%d", m, i, j, k);
+                    System.out.println();
                     if (nums[i] + nums[j] + nums[k] == loopTarget) {
                         result.add(Arrays.asList(nums[m], nums[i], nums[j], nums[k]));
                         while (j < k && nums[k] == nums[k - 1]) {
@@ -57,8 +56,11 @@ public class FourSum {
 
     @Test
     public void test() {
-        int[] numbers = {1,0,-1,0,-2,2};
-        List<List<Integer>> result = fourSum(numbers, 0);
+//        int[] numbers = {-4,-1,-1,0,1,2};
+//        int[] numbers = {-3,-2,-1,0,0,1,2,3};
+//        int[] numbers = {0,0,0,0};
+        int[] numbers = {-5,-4,-3,-2,1,3,3,5};
+        List<List<Integer>> result = fourSum(numbers, -11);
         System.out.println(result);
     }
 }
