@@ -86,14 +86,14 @@ public class TwoSum {
 	 */
 	public static int[] twoSumAll(int[] numbers, int target) {
 		int[] index = new int[2];
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+		Map<Integer, Integer> map = new HashMap<>();
 		for(int i = 0; i < numbers.length; i++){
 			int key = target - numbers[i];
 			if(map.get(key) != null){
 				index[0] = map.get(key);
-				index[1] = i + 1;
+				index[1] = i;
 			}else{
-				map.put(numbers[i], i + 1);
+				map.put(numbers[i], i);
 			}
 		}
 
@@ -101,8 +101,8 @@ public class TwoSum {
 	}
 
 	public static void main(String[] args) {
-		int[] numbers = { -3, 4, 3, 90 };
-		int target = 0;
+		int[] numbers = { 1, 4, 3, 90 };
+		int target = 5;
 		int[] result = twoSumAll(numbers, target);
 		System.out.println(result[0] + "      " + result[1]);
 	}

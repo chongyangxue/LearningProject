@@ -7,7 +7,6 @@ import org.ehcache.config.ResourcePools;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
-import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.expiry.ExpiryPolicy;
 import org.ehcache.spi.loaderwriter.CacheLoaderWriter;
@@ -26,7 +25,7 @@ public class EhcacheTest {
 
     static {
         ResourcePools resourcePools = ResourcePoolsBuilder.newResourcePoolsBuilder()
-                .heap(1000, EntryUnit.ENTRIES)
+//                .heap(1000, EntryUnit.ENTRIES)
                 .offheap(480, MemoryUnit.MB)
                 .build();
 
@@ -79,7 +78,7 @@ public class EhcacheTest {
     @Test
     public void invoke() {
 
-        int size = 170000;
+        int size = 2;
 
         for (int i = 0; i < size; ++i) {
             String key = String.format("key_%s", i);
