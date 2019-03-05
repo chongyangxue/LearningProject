@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 /**
  * 求两个数的最大公约数

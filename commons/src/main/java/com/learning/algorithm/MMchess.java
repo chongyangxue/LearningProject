@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 public class MMchess {
     static int MMchess(int[] Nscores, int[] Mnumbers) {

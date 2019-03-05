@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 import java.math.BigDecimal;
 
@@ -25,24 +25,23 @@ public class nZero {
         }
         int k = n / 5;
         if (k >= 5) {
-            return k + f(k / 5);
+            return k + f(k);
         } else {
             return k;
         }
     }
 
     public static void main(String[] args) {
-        int n = 50;
+        int n = 30;
         System.out.println("尾部0的个数：" + nZero.f(n));
         nZero.count(n);
     }
 
     public static void count(int n) {
         BigDecimal count = new BigDecimal(1);
-        for (long i = n; i > 1; i--) {
+        for (int i = n; i > 1; i--) {
             count = count.multiply(new BigDecimal(i));
         }
         System.out.println(count);
-
     }
 }

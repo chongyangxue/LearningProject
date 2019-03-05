@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 public class QuickSort {
     public static int[] swap(int[] array, int i, int j) {

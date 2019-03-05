@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 /**
  * 题目描述：输入两个整数n和m，从数列1，2，3.......n 中随意取几个数，这里同一个数不能重复取，使其和等于m， 

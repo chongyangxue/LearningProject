@@ -2,7 +2,7 @@
  * File: TopN.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

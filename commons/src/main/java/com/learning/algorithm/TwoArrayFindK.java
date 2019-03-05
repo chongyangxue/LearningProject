@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 /**
  * 在两个长度分别为 m 和 n 的有序数组中找到第 k 大的数

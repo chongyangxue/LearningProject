@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 /**
  * 判断是否存在一个区间是另一个区间的子区间

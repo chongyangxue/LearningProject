@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 /**
  * 把一个数组循环右移k位，要求时间复杂度O(n),且只用两个附加变量

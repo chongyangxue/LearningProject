@@ -2,7 +2,7 @@
  * File: HeapSort.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 /**
  * Description: Author: Sachiel Date: 2016年5月12日

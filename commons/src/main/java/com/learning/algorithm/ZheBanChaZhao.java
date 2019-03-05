@@ -1,4 +1,4 @@
-package com.learning.Algorithm;
+package com.learning.algorithm;
 
 public class ZheBanChaZhao {
     public static int find(int[] array, int k) {

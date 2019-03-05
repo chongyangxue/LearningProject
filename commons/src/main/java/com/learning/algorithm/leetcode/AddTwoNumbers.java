@@ -1,4 +1,4 @@
-package com.learning.Algorithm.Leetcode;
+package com.learning.algorithm.leetcode;
 
 /**
  * You are given two linked lists representing two non-negative numbers. The
