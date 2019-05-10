@@ -37,6 +37,7 @@ public class DirectByteBufferTest {
         byte[] offHeapBytes = new byte[buffer.limit()];
         buffer.get(offHeapBytes);
         Map<String, Property> deserMap = Hessian2Serializer.deserialize(offHeapBytes);
+
         for (int i = 0; i < SIZE; ++i) {
             String key = "key-" + i;
             Property property = deserMap.get(key);
@@ -45,7 +46,7 @@ public class DirectByteBufferTest {
                 throw new RuntimeException("cache invalid");
             }
             if (i % 10000 == 0) {
-                System.out.println("read " + i);
+                System.out.println("read " + i + ", " + property);
             }
         }
         free(buffer);

@@ -30,7 +30,7 @@ public class LongestSubstring {
     }
 
     public int lengthOfLongestSubstring2(String s) {
-        int ans = 0;
+        int max = 0;
         //map存的是重复的字符之前的位置
         Map<Character, Integer> map = new HashMap<>();
         for (int j = 0, i = 0; j < s.length(); j++) {
@@ -38,17 +38,17 @@ public class LongestSubstring {
                 int nextIndex = map.get(s.charAt(j)) + 1;
                 i = Math.max(nextIndex, i);
             }
-            ans = Math.max(ans, j - i + 1);
+            max = Math.max(max, j - i + 1);
             map.put(s.charAt(j), j);
-            System.out.println("i=" + i + ", j=" + j);
+            System.out.println("i=" + i + ", j=" + j + ", max=" + max);
             System.out.println(map);
         }
-        return ans;
+        return max;
     }
 
     @Test
     public void test() {
-        String str = "dvdfv";
+        String str = "abccde";
         System.out.println(lengthOfLongestSubstring2(str));
     }
 }
