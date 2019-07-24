@@ -8,7 +8,7 @@ import java.util.BitSet;
  * @author xuechongyang
  *         通过位图，利用1MB内存对1000万个7位数排序
  */
-public class BitSort {
+public class BitMap {
 
     @Test
     public void bitSort() {

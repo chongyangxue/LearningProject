@@ -1,4 +1,4 @@
-/** 
+/**
  * File: MulticastReceiver.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
@@ -18,8 +18,10 @@ public class MulticastReceiver {
         int port = 4006; // 端口  
         MulticastSocket msr = null;
         try {
-            msr = new MulticastSocket(port); // 1.创建一个用于发送和接收的MulticastSocket组播套接字对象  
-            msr.joinGroup(group); // 2.使用组播套接字joinGroup(),将其加入到一个组播  
+            // 1.创建一个用于发送和接收的MulticastSocket组播套接字对象
+            msr = new MulticastSocket(port);
+            // 2.使用组播套接字joinGroup(),将其加入到一个组播
+            msr.joinGroup(group);
             byte[] buffer = new byte[8192];
             System.out.println("接收数据包启动！（启动时间：）" + new java.util.Date() + ")");
             while (true) {
@@ -31,14 +33,15 @@ public class MulticastReceiver {
                 String s = new String(dp.getData(), 0, dp.getLength());
                 System.out.println(s);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (msr != null) {
                 try {
-                    msr.leaveGroup(group); // 7.使用组播套接字的leaveGroup()方法，离开组播组  
-                    msr.close(); // 关闭组播套接字  
-                } catch(IOException e) {
+                    // 7.使用组播套接字的leaveGroup()方法，离开组播组
+                    msr.leaveGroup(group);
+                    msr.close();
+                } catch (IOException e) {
                 }
             }
         }

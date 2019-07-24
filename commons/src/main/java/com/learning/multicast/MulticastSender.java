@@ -1,4 +1,4 @@
-/** 
+/**
  * File: MulticastSender.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
@@ -32,7 +32,7 @@ public class MulticastSender {
                 System.out.println("发送数据包给" + group + ":" + port);
                 Thread.sleep(1000);
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
 
         } finally {
@@ -40,7 +40,7 @@ public class MulticastSender {
                 try {
                     mss.leaveGroup(group); // 7.使用组播套接字的leaveGroup()方法，离开组播组  
                     mss.close(); // 关闭组播套接字  
-                } catch(IOException e) {
+                } catch (IOException e) {
                 }
             }
         }

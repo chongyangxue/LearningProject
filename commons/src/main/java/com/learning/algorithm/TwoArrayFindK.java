@@ -6,8 +6,8 @@ package com.learning.algorithm;
  * Created by xuechongyang on 17/3/3.
  */
 public class TwoArrayFindK {
-    public static int find(int[] a, int[] b, int k) {
 
+    public static int find(int[] a, int[] b, int k) {
         k = k / 2;
         int indexA = k - 1;
         int indexB = k - 1;
@@ -24,45 +24,43 @@ public class TwoArrayFindK {
                 k = k / 2;
                 indexA = indexA + k;
                 indexB = indexB - k;
-                if (indexB == 0) {
+                if (indexB <= 0) {
                     return Math.min(a[indexA + 1], b[indexB]);
                 }
             } else if (a[indexA] > b[indexB]) {
                 k = k / 2;
                 indexA = indexA - k;
                 indexB = indexB + k;
-                if (indexA == 0)
+                if (indexA <= 0) {
                     return Math.min(b[indexB + 1], a[indexA]);
+                }
             } else {
                 return a[indexA];
             }
-
-            for (int i = 0; i <= indexA; i++) {
-                System.out.print(a[i] + " ");
+            if (indexA >= a.length) {
+                k = k / 2;
+                indexA = indexA - k;
+                indexB = indexB + k;
             }
-            System.out.println();
-            for (int i = 0; i <= indexB; i++) {
-                System.out.print(b[i] + " ");
+            if (indexB >= a.length) {
+                k = k / 2;
+                indexA = indexA + k;
+                indexB = indexB - k;
             }
-            System.out.println();
-            System.out.println("------------------");
         }
         return a[indexA];
     }
 
-    private static  int divideK(int k) {
-        if (k % 2 != 0) {
-            k = k / 2;
-            return k + 1;
-        } else {
-            return k / 2;
-        }
+    //寻找两个有序数组的中位数
+    public static int findMid(int[] a, int[] b) {
+        int k = (a.length + b.length) / 2;
+        return find(a, b, k);
     }
 
     public static void main(String[] args) {
-        int[] a = new int[]{1, 2, 3, 4, 5, 7};
-        int[] b = new int[]{4, 4, 5, 6, 7, 8, 9, 10};
-        System.out.println("The k number is :" + find(a, b, 10));
+        int[] a = new int[]{1, 3};
+        int[] b = new int[]{2};
+        System.out.println("The k number is :" + findMid(a, b));
     }
 
 

@@ -8,12 +8,7 @@ import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.MemoryUnit;
-import org.ehcache.expiry.ExpiryPolicy;
-import org.ehcache.spi.loaderwriter.CacheLoaderWriter;
 import org.junit.Test;
-
-import java.time.Duration;
-import java.util.function.Supplier;
 
 /**
  * @author xuechongyang
@@ -32,7 +27,7 @@ public class EhcacheTest {
         CacheConfiguration<String, Property> configuration = CacheConfigurationBuilder
                 .newCacheConfigurationBuilder(String.class, Property.class, resourcePools)
                 //设置过期时间
-                .withExpiry(new ExpiryPolicy<String, Property>() {
+/*                .withExpiry(new ExpiryPolicy<String, Property>() {
                     @Override
                     public Duration getExpiryForCreation(String key, Property value) {
                         return Duration.ofHours(1);
@@ -47,8 +42,8 @@ public class EhcacheTest {
                     public Duration getExpiryForUpdate(String key, Supplier<? extends Property> oldValue, Property newValue) {
                         return Duration.ofHours(1);
                     }
-                })
-                //设置read-through加载器
+                })*/
+/*                //设置read-through加载器
                 .withLoaderWriter(new CacheLoaderWriter<String, Property>() {
                     @Override
                     public Property load(String key) throws Exception {
@@ -64,7 +59,7 @@ public class EhcacheTest {
                     public void delete(String key) throws Exception {
 
                     }
-                })
+                })*/
                 .build();
 
         CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
@@ -77,26 +72,21 @@ public class EhcacheTest {
 
     @Test
     public void invoke() {
-
-        int size = 2;
+        int size = 100000;
 
         for (int i = 0; i < size; ++i) {
             String key = String.format("key_%s", i);
-            Property property = new Property(key, i);
+            Property property = new Property(key, key+"-value");
             cache.put(key, property);
         }
-        System.out.println("write down");
 
         for (int i = 0; i < size; ++i) {
             String key = String.format("key_%s", i);
             Property property = cache.get(key);
             if (property == null) {
                 System.err.println("cache invalid, key: " + key);
-                throw new RuntimeException("cache invalid");
-            }
-
-            if (i % 10000 == 0) {
-                System.out.println("read " + i);
+            } else {
+                System.out.println(property.toString());
             }
         }
     }
