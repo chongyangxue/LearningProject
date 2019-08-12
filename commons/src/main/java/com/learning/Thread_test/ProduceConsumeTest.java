@@ -44,6 +44,8 @@ public class ProduceConsumeTest {
         });
         threadA.start();
         threadB.start();
+
+        //让父线程等待子线程结束之后才能继续运行。
         threadA.join();
         threadB.join();
         System.out.println("执行完毕");
