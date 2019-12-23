@@ -1,4 +1,4 @@
-package com.learning.ClassCompiler;
+package com.learning.hotcompile;
 
 import lombok.Data;
 

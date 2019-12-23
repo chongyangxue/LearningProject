@@ -1,5 +1,7 @@
 package com.learning.algorithm;
 
+import org.junit.Test;
+
 /**
  * 题目描述：输入两个整数n和m，从数列1，2，3.......n 中随意取几个数，这里同一个数不能重复取，使其和等于m，
  * 要求将其中所有的可能组合列出来。
@@ -25,12 +27,15 @@ public class AllSumArray {
             } else if (i + n == sum && array[i] == 0) {
                 array[i] = 1;
                 System.out.println(i + "," + n);
-                i = 1; n--;
+                i = 1;
+                n--;
             }
         }
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void testSum() {
         printArray(10, 12);
     }
+
 }

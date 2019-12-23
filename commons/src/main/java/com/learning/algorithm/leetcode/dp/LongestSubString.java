@@ -1,4 +1,4 @@
-package com.learning.algorithm.dp;
+package com.learning.algorithm.leetcode.dp;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;

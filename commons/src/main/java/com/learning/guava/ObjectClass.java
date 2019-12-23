@@ -10,7 +10,7 @@ public class ObjectClass {
 		System.out.println(Objects.equal("a", "b"));
 		System.out.println(Objects.equal(null, "a"));
 		
-		String result1 = Objects.toStringHelper(new User("chongyang", "sohu")).toString();
+		String result1 = new User("chongyang", "sohu").toString();
 		System.out.println(result1);
 
 	}

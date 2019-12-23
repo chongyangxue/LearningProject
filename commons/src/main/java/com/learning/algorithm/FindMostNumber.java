@@ -14,10 +14,11 @@ public class FindMostNumber {
                 mostNumber = array[i];
                 ntimes = 1;
             } else {
-                if (array[i] == mostNumber)
+                if (array[i] == mostNumber) {
                     ntimes++;
-                else
+                } else {
                     ntimes--;
+                }
             }
         }
         return mostNumber;

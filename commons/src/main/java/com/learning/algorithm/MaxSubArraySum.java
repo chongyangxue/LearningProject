@@ -28,8 +28,9 @@ public class MaxSubArraySum {
             int sum = 0;
             for (int j = i; j < array.length - 1; j++) {
                 sum += array[j];
-                if (max < sum)
+                if (max < sum) {
                     max = sum;
+                }
             }
         }
         return max;
@@ -38,8 +39,6 @@ public class MaxSubArraySum {
     /**
      * nStart表示从第i位开始到尾部的和的最大值, nAll表示从第i位开始最大的子数组和
      *
-     * @param array
-     * @return
      */
     public static int MaxSum3(int[] array) {
         int n = array.length;
@@ -48,8 +47,9 @@ public class MaxSubArraySum {
 
         for (int i = n - 2; i >= 0; i--) {
             nStart = max(array[i], array[i] + nStart);
-            if (nStart > max)
+            if (nStart > max) {
                 max = nStart;
+            }
             System.out.println("nStart = " + nStart + ", nAll = " + max);
         }
         return max;
@@ -89,11 +89,13 @@ public class MaxSubArraySum {
         int max = array[0];
 
         for (int i = 1; i < n - 1; i++) {
-            if (nStart < 0)
+            if (nStart < 0) {
                 nStart = 0;
+            }
             nStart += array[i];
-            if (nStart > max)
+            if (nStart > max) {
                 max = nStart;
+            }
             System.out.println("nStart = " + nStart + ", nAll = " + max);
         }
         return max;

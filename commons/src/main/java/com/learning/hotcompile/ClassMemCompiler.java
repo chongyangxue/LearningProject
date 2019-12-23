@@ -1,4 +1,4 @@
-package com.learning.ClassCompiler;
+package com.learning.hotcompile;
 
 
 import com.google.common.collect.Lists;
@@ -167,30 +167,7 @@ public class ClassMemCompiler {
 
     }
 
-    public static void main(String[] args) {
-        String sourceCode =
-                "package com.learning.ClassCompiler;\n" +
-                        "import com.learning.ClassCompiler.ClassMemCompiler;\n" +
-                        "import java.util.Date;\n" +
-                        "\n" +
-                        "public class TestRule implements ClassMemCompiler.Calculator{\n" +
-                        "    private Integer id;\n" +
-                        "    @Override\n" +
-                        "    public void func() {\n" +
-                        "    \tid = 1;\n" +
-                        "        System.out.println(\"id=\" + id);\n" +
-                        "    }\n" +
-                        "}";
 
-        String className = "com.learning.ClassCompiler.TestRule";
-        try {
-            Class clazz = compileAndLoad(className, sourceCode);
-            Calculator cal = (Calculator) clazz.newInstance();
-            cal.func();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static interface Calculator {
         void func();

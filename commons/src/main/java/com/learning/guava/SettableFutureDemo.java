@@ -27,7 +27,7 @@ public class SettableFutureDemo {
     @Test
     public void testFutureAllOf() {
         SettableFuture<Integer> settableFuture = SettableFuture.create();
-        ListenableFuture<Integer> future = Futures.immediateCheckedFuture(getValue());
+        ListenableFuture<Integer> future = Futures.immediateFuture(getValue());
         try {
             Integer value = settableFuture.get(100, TimeUnit.MILLISECONDS);
             System.out.println(value);

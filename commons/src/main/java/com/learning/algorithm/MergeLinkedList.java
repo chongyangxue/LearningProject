@@ -1,13 +1,13 @@
-/** 
+/**
  * File: MergeLinkedList.java
  * Copyright (C), 2015-2016 中盈优创  Tech.Co.Ltd.All Rights Reserved.
  */
 package com.learning.algorithm;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.Test;
 
 /**
  * 将N个有序链表合并为一个有序链表 注意：归并排序的时间复杂度是O(N*M) 使用堆排序的时间复杂度是O(NlogN)
@@ -66,8 +66,9 @@ public class MergeLinkedList {
         minHeapify(heap); //初始化堆
         ListNode head = null;
         ListNode current = null;
-        if (heap.size() == 0)
+        if (heap.size() == 0) {
             return null;
+        }
         while (heap.size() != 0) {
             if (head == null) {
                 head = heap.get(0);

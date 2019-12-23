@@ -1,5 +1,7 @@
 package com.learning.algorithm;
 
+import org.junit.Test;
+
 /**
  * 在两个长度分别为 m 和 n 的有序数组中找到第 k 大的数
  * <p>
@@ -57,7 +59,8 @@ public class TwoArrayFindK {
         return find(a, b, k);
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void testTwoArray() {
         int[] a = new int[]{1, 3};
         int[] b = new int[]{2};
         System.out.println("The k number is :" + findMid(a, b));

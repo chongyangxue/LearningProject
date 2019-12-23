@@ -27,13 +27,13 @@ public class Bit {
      */
     @Test
     public void findNumberOfInt1() {
-        int val = -7;
-        int n = 0;
+        int val = 7;
+        int count = 0;
         while (val != 0) {
-            if ((val & 1) == 1) {n++;}
+            if ((val & 1) == 1) {count++;}
             val = val >> 1;
         }
-        System.out.println(n);
+        System.out.println(count);
         System.out.println(val >>> 1);
     }
 
