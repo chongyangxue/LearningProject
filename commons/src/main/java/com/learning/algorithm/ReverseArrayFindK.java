@@ -4,6 +4,7 @@ import org.junit.Test;
 
 /**
  * 问题：就是一个排序好的数组 选择一个点 前后旋转一下 然后给定一个数 让返回这个数所在下标
+ *
  * @author xuechongyang
  */
 public class ReverseArrayFindK {
@@ -18,7 +19,7 @@ public class ReverseArrayFindK {
             if (start > end) {
                 length = (array.length - start + end) / 2;
             } else {
-                length = end -start;
+                length = end - start;
                 length = length >= 2 ? length / 2 : length;
             }
             mid = start + length;
@@ -48,5 +49,38 @@ public class ReverseArrayFindK {
     public void testFindK() {
         int[] reverseArray = new int[]{14, 15, 16, 17, 18, 1, 2, 3, 4, 5, 6};
         System.out.println("The k number is :" + findK(reverseArray, 4, 17));
+    }
+
+    public static int sol(int[] nums, int k) {
+        if (nums.length == 0) {
+            return -1;
+        }
+        int l = 0;
+        int h = nums.length - 1;
+        while (l <= h) {
+            int m = l + (h - l) / 2;
+            if (nums[m] == k) {
+                return m;
+            } else if (nums[l] <= nums[m]) {
+                if (k >= nums[l] && k < nums[m]) {
+                    h = m - 1;
+                } else {
+                    l = m + 1;
+                }
+            } else {
+                if (k > nums[m] && k <= nums[h]) {
+                    l = m + 1;
+                } else {
+                    h = m - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    @Test
+    public void testFind2() {
+        int[] reverseArray = new int[]{14, 15, 16, 1, 2, 3, 4, 5, 6};
+        System.out.println("The k number is :" + sol(reverseArray, 1));
     }
 }

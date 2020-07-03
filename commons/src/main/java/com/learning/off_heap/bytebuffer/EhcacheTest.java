@@ -12,7 +12,6 @@ import org.junit.Test;
 
 /**
  * @author xuechongyang
- *
  */
 public class EhcacheTest {
 
@@ -76,7 +75,7 @@ public class EhcacheTest {
 
         for (int i = 0; i < size; ++i) {
             String key = String.format("key_%s", i);
-            Property property = new Property(key, key+"-value");
+            Property property = new Property(key, key + "-value");
             cache.put(key, property);
         }
 
