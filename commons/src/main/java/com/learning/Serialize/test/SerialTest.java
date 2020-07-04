@@ -20,13 +20,13 @@ public class SerialTest extends Person implements Serializable {
         long javaTime = System.currentTimeMillis();
         System.out.println("java time: " +  (javaTime - startTime));
 
-        SpyMemcachedSerialize.write(obj);
-        long spyMemcacheTime = System.currentTimeMillis();
-        System.out.println("spyMemcacheTime time: " +  (spyMemcacheTime - javaTime));
+//        SpyMemcachedSerialize.write(obj);
+//        long spyMemcacheTime = System.currentTimeMillis();
+//        System.out.println("spyMemcacheTime time: " +  (spyMemcacheTime - javaTime));
 
         HessianSerialize.write(obj);
         long hessianTime = System.currentTimeMillis();
-        System.out.println("hessianTime time: " +  (hessianTime - spyMemcacheTime));
+        System.out.println("hessianTime time: " +  (hessianTime - javaTime));
 
         KyroSerialize.write(obj);
         long kyroTime = System.currentTimeMillis();

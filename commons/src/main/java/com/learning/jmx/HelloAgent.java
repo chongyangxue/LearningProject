@@ -1,11 +1,5 @@
 package com.learning.jmx;
 
-import java.lang.management.ManagementFactory;
-
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-
-import com.sun.jdmk.comm.HtmlAdaptorServer;
 /**
  * 先创建了一个MBeanServer，用来做MBean的容器 
  * 将Hello这个类注入到MBeanServer中，注入需要创建一个ObjectName类 
@@ -17,7 +11,7 @@ import com.sun.jdmk.comm.HtmlAdaptorServer;
  */
 public class HelloAgent {
 	public static void main(String[] args) throws Exception {   
-//      MBeanServer server = MBeanServerFactory.createMBeanServer();   
+/*//      MBeanServer server = MBeanServerFactory.createMBeanServer();
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();   
         ObjectName helloName = new ObjectName("Sachiel:name=HelloWorld");   
         server.registerMBean(new Hello(), helloName);
@@ -27,7 +21,7 @@ public class HelloAgent {
         HtmlAdaptorServer adapter = new HtmlAdaptorServer();   
         server.registerMBean(adapter, adapterName);   
         adapter.start();   
-        System.out.println("start.....");   
+        System.out.println("start.....");   */
     }   
 
 }

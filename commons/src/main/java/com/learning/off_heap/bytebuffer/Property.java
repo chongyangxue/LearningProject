@@ -1,9 +1,7 @@
 package com.learning.off_heap.bytebuffer;
 
 import com.google.common.collect.Maps;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -12,13 +10,16 @@ import java.util.Map;
  * @author xuechongyang
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Property implements Serializable{
+public class Property implements Serializable {
 
     private String key;
+
     private Object value;
 
+    public Property(String key, Object value) {
+        this.key = key;
+        this.value = value;
+    }
 
     public static void main(String[] args) {
         Map<Property, Object> map = Maps.newHashMap();

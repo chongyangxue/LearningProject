@@ -4,12 +4,9 @@
  */
 package com.learning.guava;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.junit.Test;
-
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import org.junit.Test;
 
 /**
  * Description: Author: Sachiel Date: 2016-1-18
@@ -39,10 +36,29 @@ public class MultiMapDemo {
         }
     }
 
-    @Data
-    @AllArgsConstructor
-    private class User {
+    private static class User {
         private String name;
         private String addr;
+
+        public User(String name, String addr) {
+            this.name = name;
+            this.addr = addr;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getAddr() {
+            return addr;
+        }
+
+        public void setAddr(String addr) {
+            this.addr = addr;
+        }
     }
 }
