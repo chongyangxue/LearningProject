@@ -1,0 +1,17 @@
+*.classpath
+*.class
+*.iml
+*.project
+commons/target/*
+commons/.idea/*
+hystrix/.idea/*
+hystrix/target/*
+.gitignore
+mybatis/.idea/*
+mybatis/.settings
+mybatis/target
+netty/*/target
+.idea/*
+*/.settings/
+*/target/
+*/*/target/
