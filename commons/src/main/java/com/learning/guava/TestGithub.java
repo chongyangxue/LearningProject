@@ -1,5 +1,6 @@
 package com.learning.guava;
 
+// 此文件用于演示顺时针打印矩阵
 public class TestGithub {
 
     public void printMatrixClockwise(int[][] matrix) {
@@ -11,8 +12,9 @@ public class TestGithub {
         int cols = matrix[0].length;
         
         // 定义四个边界
-        int left = 0, right = cols - 1;
+        int left = 0, right = cols + 1;
         int top = 0, bottom = rows - 1;
+        
         
         while (left <= right && top <= bottom) {
             // 从左到右
