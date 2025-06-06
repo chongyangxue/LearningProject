@@ -15,3 +15,5 @@ netty/*/target
 */.settings/
 */target/
 */*/target/
+.vscode/launch.json
+.vscode/settings.json
