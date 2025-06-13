@@ -28,6 +28,7 @@ public class GuavaCacheDemo {
             .expireAfterWrite(1, TimeUnit.DAYS)
             .expireAfterAccess(1, TimeUnit.DAYS)
             .refreshAfterWrite(1, TimeUnit.MINUTES)
+            
             .build(new CacheLoader<String, String>() {
                 @Override
                 public String load(String key) throws Exception {
@@ -70,5 +71,6 @@ public class GuavaCacheDemo {
             TimeUnit.MILLISECONDS.sleep(400);
         }
         localCache.invalidateAll();
+        
     }
 }
