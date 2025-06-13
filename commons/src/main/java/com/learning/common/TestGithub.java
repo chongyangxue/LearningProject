@@ -1,5 +1,12 @@
 package com.learning.common;
 
+/**
+ * 矩阵顺时针打印工具类
+ * 该类提供了将二维矩阵按照顺时针方向打印的功能
+ * 
+ * @author learning
+ * @since 2024-03-21
+ */
 public class TestGithub {
 
     public static void printMatrixClockwise(int[][] matrix) {
@@ -11,6 +18,7 @@ public class TestGithub {
         int bottom = matrix.length - 1;
         int left = 0;
         int right = matrix[0].length - 1;
+        
         
         while (top <= bottom && left <= right) {
             // 打印上边
@@ -43,7 +51,7 @@ public class TestGithub {
         }
     }
     
-    
+
     public static void main(String[] args) {
         int[][] matrix = {
             {1, 2, 3, 4},
